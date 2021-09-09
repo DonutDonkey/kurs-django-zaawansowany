@@ -20,6 +20,8 @@ def autor_po_zapisaniu(sender, instance, **kwargs):
 @receiver([pre_save], sender=Autor)
 def autor_po_zapisaniu(sender, instance, **kwargs):
     print('Autor before being saved')
+    nasz_autor_istnieje = Autor.objects.filter(id=instance.id).exists()
+    print(Autor.objects.get(id=instance.id).imie if nasz_autor_istnieje else 'Nowy aktor')
 
 # post_save.connect(autor_po_zapisaniu, sender=Autor)
 
