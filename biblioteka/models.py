@@ -32,3 +32,20 @@ class Ksiazka(models.Model):
 
     def __str__(self):
         return self.tytul
+
+    class Meta:
+        # db_table = 'ksiazki' #inna nazwa przechowyzania ksiazki
+        # ordering = ['rok_wydania'] # orderowanie w bazie, - dla malejacych
+        # order_with_respect_to = 'autor'  #sortowanie wzgledem czegos
+        verbose_name = 'książka' #nazwa w bazie
+        verbose_name_plural = 'książki' #nazwa w liczbie mnogiej
+        #kombinacja tych wartosci musi byc unikalna
+        unique_together = ['tytul', 'rok wydania']
+        #indexowanie, przyspieszanie iteracji po databasie
+        indexes = [
+            models.Index(fields=['tytul'], name=['tytul_indx']),
+            models.Index(fields=['tytul', 'rok_wydania'], name=['tytul_indx'])
+        ]
+        permissions = [
+            ('can_update_ksiazka', "Może zmieniać książke")
+        ]
