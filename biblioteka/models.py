@@ -1,7 +1,5 @@
 from django.db import models
 from biblioteka.managers import KsiazkaManager
-from django.db.models.signals import post_save, pre_save
-from django.dispatch import receiver
 
 class Autor(models.Model):
     imie = models.CharField(max_length=20, blank=False)
@@ -10,18 +8,6 @@ class Autor(models.Model):
 
     def __str__(self):
         return self.imie + " " + self.nazwisko
-# sender : co wywoławo funkcje
-# instance : obiekt który wywołał funkcje
-# **kwargs : argumenty w funkcji
-@receiver([post_save], sender=Autor)
-def autor_po_zapisaniu(sender, instance, **kwargs):
-    print('Autor saved')
-    print(instance.imie)
-@receiver([pre_save], sender=Autor)
-def autor_po_zapisaniu(sender, instance, **kwargs):
-    print('Autor before being saved')
-    nasz_autor_istnieje = Autor.objects.filter(id=instance.id).exists()
-    print(Autor.objects.get(id=instance.id).imie if nasz_autor_istnieje else 'Nowy aktor')
 
 # post_save.connect(autor_po_zapisaniu, sender=Autor)
 
