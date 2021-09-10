@@ -1,5 +1,7 @@
+from django.core import validators
 from django.db import models
 from biblioteka.managers import KsiazkaManager
+from django.core.validators import MaxValueValidator
 
 class Autor(models.Model):
     imie = models.CharField(max_length=20, blank=False)
@@ -25,12 +27,18 @@ class Gatunek():
         
 class Ksiazka(models.Model):
     tytul = models.CharField(max_length=50, blank=False)
-    rok_wydania = models.IntegerField(blank=False)
+    rok_wydania = models.IntegerField(blank=False, validators=[MaxValueValidator(2020)])
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE, related_name='ksiazki')
     gatunek = models.PositiveSmallIntegerField(choices=Gatunek.GATUNKI, default=0)
 
     objects = models.Manager() # jesli customowy manager jest to defaultowy objects przestaje istniec wiec dodajemy
     ksiazki = KsiazkaManager()
+
+# Validator wyrzuci w interfejswie admina itp ale nie w konsoli
+    def save(self, *args, **kwargs):
+        if self.rok_wydania > 2020:
+            raise ValueError('Rok wydania wiekszy niz 2020')
+        super(Ksiazka, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.tytul
