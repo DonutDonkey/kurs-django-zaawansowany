@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from biblioteka.views import glowny, wysylanie_maila
+from biblioteka.views import glowny, nowy_form, wysylanie_maila
 from django.contrib.auth.views import PasswordResetCompleteView, PasswordResetView, PasswordChangeDoneView, PasswordResetConfirmView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('nowy_form', nowy_form),
     path('', glowny),
     # path('email/', wysylanie_maila)
     path('password_reset', PasswordResetView.as_view()),

@@ -5,6 +5,17 @@ from .signals import nasz_signal
 from django.db import transaction
 from django.core.mail import send_mail
 from django.contrib import messages
+from .forms import NaszForm
+
+
+def nowy_form(request):
+    if request.method == 'POST':
+        form = NaszForm(request.POST)
+        if form.is_valid():
+            print('Form is valid')
+    else:
+        form = NaszForm()
+    return render(request, 'nasz_form.html', {'form': form})
 
 # Create your views here.
 def glowny(request):
