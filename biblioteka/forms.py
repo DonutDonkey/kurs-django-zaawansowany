@@ -5,7 +5,7 @@ from .validators import validate_rok
 
 class NaszForm(forms.Form):
     imie = forms.CharField(label='Imie', max_length=20)
-    rok = forms.IntegerField(blank=False, validators=[validate_rok])
+    rok = forms.IntegerField(validators=[validate_rok])
 
     # def clean_rok(self):
     #     rok = self.cleaned_data.get('rok')

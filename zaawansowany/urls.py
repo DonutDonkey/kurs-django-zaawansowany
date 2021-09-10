@@ -21,7 +21,7 @@ from django.contrib.auth.views import PasswordResetCompleteView, PasswordResetVi
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('nowy_form', nowy_form),
+    path('nowy_form', nowy_form, name='nowy_form'),
     path('', glowny),
     # path('email/', wysylanie_maila)
     path('password_reset', PasswordResetView.as_view()),
@@ -35,6 +35,6 @@ import debug_toolbar
 from django.conf import settings
 from django.urls import include, path
 
-urlpatterns = [
-    path('__debug__/', include(debug_toolbar.urls)),
-]
+# urlpatterns = [
+#     path('__debug__/', include(debug_toolbar.urls)),
+# ]
