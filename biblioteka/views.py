@@ -4,6 +4,7 @@ from django.http import HttpResponse, request
 from .signals import nasz_signal
 from django.db import transaction
 from django.core.mail import send_mail
+from django.contrib import messages
 
 # Create your views here.
 def glowny(request):
@@ -26,13 +27,19 @@ def wysylanie_maila(request):
         if request.POST.get('email', False):
             email = request.POST['email']
             wiadomosc = 'form message' + email
-            send_mail(
-                subject='temat',
-                message=wiadomosc,
-                from_email=email,
-                recipient_list=['abc@abc.com'],
-                fail_silently=False
-            )
+
+            try:
+                send_mail(
+                    subject='temat',
+                    message=wiadomosc,
+                    from_email=email,
+                    recipient_list=['abc@abc.com'],
+                    fail_silently=False
+                )
+                messages.success(request, 'Mail zostal wyslany')
+            except:
+                messages.error(request, 'Mail nie zostal wyslany')
+
             return HttpResponse('Mail zostal wyslany')
                
     return render(request, 'email_form.html')
