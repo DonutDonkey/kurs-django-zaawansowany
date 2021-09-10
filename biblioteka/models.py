@@ -54,10 +54,10 @@ class Ksiazka(models.Model):
         #kombinacja tych wartosci musi byc unikalna
         unique_together = ['tytul', 'rok_wydania']
         #indexowanie, przyspieszanie iteracji po databasie
-        # indexes = [
-        #     models.Index(fields=['tytul'], name=['tytul_indx']),
-        #     models.Index(fields=['tytul', 'rok_wydania'])
-        # ]
-        permissions = [
-            ('can_update_ksiazka', "Może zmieniać książke")
+        indexes = [
+            models.Index(fields=['tytul'], name=['tytul_indx']),
+            models.Index(fields=['tytul', 'rok_wydania'])
         ]
+        # permissions = [
+        #     ('can_update_ksiazka', "Może zmieniać książke")
+        # ]
