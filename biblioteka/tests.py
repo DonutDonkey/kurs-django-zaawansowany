@@ -70,3 +70,13 @@ class BibliotekaTests(TestCase):
             'rok': 2025
         })
         self.assertFalse(form.is_valid())
+
+#TDD - Test driven developement
+    def test_ksiazka_metoda_jest_nowoczesna(self):
+        # return true if year > 2000
+        self.assertTrue(self.ksiazka.jest_nowoczesna())
+
+    def test_ksiazka_metoda_nie_jest_nowoczesna(self):
+        # return true if year > 2000
+        ksiazka = Ksiazka.objects.create(tytul='testowa3', rok_wydania=1019, autor=self.autor)
+        self.assertFalse(ksiazka.jest_nowoczesna())

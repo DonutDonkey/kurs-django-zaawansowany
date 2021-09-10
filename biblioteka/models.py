@@ -45,6 +45,9 @@ class Ksiazka(models.Model):
     def __str__(self):
         return self.tytul
 
+    def jest_nowoczesna(self) -> bool:
+        return self.rok_wydania > 2000
+
     class Meta:
         # db_table = 'ksiazki' #inna nazwa przechowyzania ksiazki
         # ordering = ['rok_wydania'] # orderowanie w bazie, - dla malejacych
