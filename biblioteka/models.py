@@ -2,6 +2,7 @@ from django.core import validators
 from django.db import models
 from biblioteka.managers import KsiazkaManager
 from django.core.validators import MaxValueValidator
+from .validators import validate_rok
 
 class Autor(models.Model):
     imie = models.CharField(max_length=20, blank=False)
@@ -36,9 +37,10 @@ class Ksiazka(models.Model):
 
 # Validator wyrzuci w interfejswie admina itp ale nie w konsoli
     def save(self, *args, **kwargs):
-        if self.rok_wydania > 2020:
-            raise ValueError('Rok wydania wiekszy niz 2020')
-        super(Ksiazka, self).save(*args, **kwargs)
+        # if self.rok_wydania > 2020:
+        #     raise ValueError('Rok wydania wiekszy niz 2020')
+        # super(Ksiazka, self).save(*args, **kwargs)
+        validate_rok(self.rok_wydania)
 
     def __str__(self):
         return self.tytul
